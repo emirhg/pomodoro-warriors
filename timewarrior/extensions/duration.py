@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/env python3.10
 
 import datetime
 
@@ -10,10 +10,10 @@ def main():
     now = datetime.datetime.now()
     duration = datetime.timedelta()
     for entry in entries:
-        start = utils.parse_utc(entry['start'])
-        end = utils.parse_utc(entry['end']) if 'end' in entry else now
-        duration += (end - start)
-    print duration
+        start = utils.parse_utc(entry["start"])
+        end = utils.parse_utc(entry["end"]) if "end" in entry else now
+        duration += end - start
+    print(duration)
 
 
 main()

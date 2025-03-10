@@ -1,8 +1,8 @@
-#!/usr/local/bin/python
+#!/usr/bin/python
 
 import json
 import datetime
-import commands
+import subprocess
 
 import utils
 from utils import settings
@@ -73,7 +73,7 @@ def stat():
 
     for tag in entries[-1]['tags']:
         if utils.is_uuid(tag):
-            ret['desc'] = commands.getoutput('task _get %s.description' % tag)
+            ret['desc'] = subprocess.getoutput('task _get %s.description' % tag)
             break
 
     return ret
