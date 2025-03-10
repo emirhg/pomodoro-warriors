@@ -24,16 +24,20 @@ if "start" in old and ("start" not in new or "stop" in new):
     start = datetime.strptime(old["start"], "%Y%m%dT%H%M%S%z")
     # We'll run with testing=True so we don't mess up any production instance.
     # Make sure you've started aw-server with the `--testing` flag as well.
-    # client = ActivityWatchClient("aw-watcher-warrior", testing=False)
 
     bucket_id = "{}_{}".format("aw-watcher-warrior", gethostname())
-    # client.create_bucket(bucket_id, event_type="tw.task.active")
-    # url = f"http://localhost:5600/api/0/buckets/{bucket_id}"
-    # res = post(url, json="{'event_type':'tw.task.active'}")
+    url = f"http://localhost:5600/api/0/buckets/{bucket_id}"
+    res = post(url, json={
+        'type': 'tw.task.active',
+        'hostname': gethostname(),
+        'client': "taskwarrior hook",
+        "name": "TaskWarrior",
+    })
     # print(f"{bucket_id}", res.text)
 
     if "project" not in new:
-        active_task_data = {"title": new["description"], "status": new["status"]}
+        active_task_data = {
+            "title": new["description"], "status": new["status"]}
     else:
         active_task_data = {
             "title": new["description"],
